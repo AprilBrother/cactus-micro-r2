@@ -43,9 +43,9 @@ void clearRx() {
 String readString(
     long timeout, 
     String target1, 
-    String target2 = NULL, 
-    String target3 = NULL,
-    String target4 = NULL
+    String target2 = "", 
+    String target3 = "",
+    String target4 = ""
 ) {
     String data;
     char a;
@@ -65,15 +65,15 @@ String readString(
             break;
         } 
 
-        if (target2 && (data.indexOf(target2) != -1)) {
+        if (target2.length() && (data.indexOf(target2) != -1)) {
             break;
         }
 
-        if (target3 && (data.indexOf(target3) != -1)) {
+        if (target3.length() && (data.indexOf(target3) != -1)) {
             break;
         }
 
-        if (target4 && (data.indexOf(target4) != -1)) {
+        if (target4.length() && (data.indexOf(target4) != -1)) {
             break;
         }
     }
