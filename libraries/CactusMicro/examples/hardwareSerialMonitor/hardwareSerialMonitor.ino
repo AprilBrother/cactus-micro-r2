@@ -1,14 +1,22 @@
-String tmp; 
+/*
+* Edited by Mert Gülsoy
+*   *While the chip is running at 8MHZ the clock speed is enough to transfer even single char received
+*/
 
 #define BAUD_RATE 9600
+#define ESP Serial1
 
 void setup() {
   Serial.begin(BAUD_RATE);
-  Serial1.begin(BAUD_RATE); 
+  ESP.begin(BAUD_RATE); 
   while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
-  Serial.println("Hello Cactus Micro!");
+  for(int i = 0; i<5; i++) {
+    Serial.print(i,DEC);
+    Serial.println(F(" Hello Cactus Micro!"));
+    delay(1010);
+  }
   
   // Enable esp8266 
   pinMode(13, OUTPUT);
@@ -17,17 +25,10 @@ void setup() {
 
 void loop() {
 
-  while (Serial1.available() > 0)  {
-    tmp += char(Serial1.read());
-    delay(2);
-  }
+  if(ESP.available() > 0)
+    Serial.write(ESP.read());
 
-  if(tmp.length() > 0) {
-    Serial.println(tmp);
-    tmp = "";
-  }
 
-  if (Serial.available()) {
-    Serial1.write(Serial.read());
-  }
+  if (Serial.available()) 
+    ESP.write(Serial.read());
 }
